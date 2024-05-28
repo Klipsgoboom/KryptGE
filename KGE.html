@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KGE</title>
+</head>
+
+<style>
+    p1 {
+    font-size: x-large;
+    font-weight: bolder;
+    color: rgb(200,200,200);
+}
+</style>
+
+
+<body style="background-color: rgb(50,50,50);">
+<div style="display: flex; background-color: rgb(70,70,70);">
+<h1> Preview</h1>
+<canvas id="tftScreen" width="480" height="320"></canvas>
+<div style="background-color: rgb(60,60,60); width: 100%;">
+    <h1> Sprite Editor</h1>
+    <input id="Sx" placeholder="x position"> </input>
+    <input id="Sy" placeholder="y position"> </input>
+    <input id="Swidth" placeholder="width"> </input>
+    <input id="Sheight" placeholder="height"> </input>
+    <button onclick="squareSprite()"></button>
+</div>
+</div>
+<script src="./modules/htmlStorage.js"> </script>
+<script src="./modules/htmlGraphics.js"> </script>
+<script src="./code/main.js"> </script>
+<script src="./krypt-sc.js"> </script>
+<script src="./modules/kryptGE.js"> </script>
+<br>
+<button onclick="threebtn()"> 3</button>
+<button onclick="twobtn()"> 2</button>
+<button onclick="onebtn()"> 1</button>
+<button onclick="startbtn()"> Run Preview</button>
+<hr>
+<h1> Code Input</h1>
+<p1> Start</p>
+<textarea id="codeInputST" placeholder="settext hello world sign" style="width: 100%; height: 200px; text-align: left; overflow:auto; resize: none; background-color: rgb(70,70,70);"></textarea>
+<p1> Post-Start</p>
+<textarea id="codeInputAST" placeholder="loop |" style="width: 100%; height: 200px; text-align: left; overflow:auto; resize: none; background-color: rgb(70,70,70);"></textarea>
+
+</body>
+</html>
