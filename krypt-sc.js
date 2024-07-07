@@ -1,5 +1,7 @@
-var color = 'red'
-var backColor = 'blue'
+var red = 255
+var green = 255
+var blue = 255
+
 var setText = "Krypt-Script JS";
 var setTextVar = "Krypt-Script JS";
 var coordx = 0;
@@ -12,7 +14,9 @@ var inputString
 var tbnoneClick = 0;
 var tbntwoClick = 0;
 
+
 var previewAllowed = false
+
 
 try {
     var canvas = document.getElementById("tftScreen");
@@ -74,7 +78,6 @@ function interpret() {
 processCode();
 
 function processCode() {
-        if (previewAllowed == true) {
             var testLine = loadedCode[linesSet];
 
             if (i > loadedCode.length) {
@@ -148,9 +151,6 @@ if (tbnoneClick == 0 && testLine == "bt1click") {
         currentFunction = loadedCode[i+1]
     }
 
-            if (testLine == 'frontr') {
-                color = 'red';
-            }
             if (testLine == 'clr') {
                 try {
                 clrScr();
@@ -160,22 +160,15 @@ if (tbnoneClick == 0 && testLine == "bt1click") {
                 }
             }
             
+            if (testLine == 'rgb') {
+                i++
+                red = loadedCode[i];
+                i++ 
+                green = loadedCode[i];
+                i++
+                blue = loadedCode[i];
+            }
 
-            if (testLine == 'frontg') {
-                color = 'green';
-            }
-            if (testLine == 'frontb') {
-                color = 'blue';
-            }
-            if (testLine == 'backr') {
-                backColor = 'red';
-            }
-            if (testLine == 'backg') {
-                backColor = 'green';
-            }
-            if (testLine == 'backb') {
-                backColor = 'blue';
-            }
             if (testLine == 'settext') {
                 setText = extensionInput;
             }
@@ -396,9 +389,12 @@ var snapshot2 = setVars[var2];
     }
 }
 if (testLine == "loop") {
-      loop = 1;
-      loopStart = i +1;
-      destroyStart();
+    //if (previewAllowed == true){
+        loop = 1;
+        loopStart = i +1;
+        destroyStart();
+    //}
+    loop = 1;
     }
 
     if (testLine == "checkvarresult") {
@@ -422,9 +418,6 @@ if (testLine == "loop") {
             if (loop == 1) {
             setTimeout(processCode, 0);
             }
-        } else {
-
-        }
     }
 processCode();
 }

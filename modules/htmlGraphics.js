@@ -1,6 +1,6 @@
 function writeText() {
     ctx.font = "16px Arial";
-    ctx.fillStyle = color;
+    ctx.fillStyle = 'rgb(' + red + ',' + green + ',' + blue + ')';
     ctx.fillText(setText, Number(coordx), Number(coordy)+16);
 }
 
