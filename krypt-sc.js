@@ -229,7 +229,21 @@ if (tbnoneClick == 0 && testLine == "bt1click") {
             if (testLine == 'sprite') {
                 i++;
                 ctx.fillRect(Number(loadedCode[i]), Number(loadedCode[i+1]), Number(loadedCode[i+2]), Number(loadedCode[i+3]));
-                i+4
+                i+=4
+            }
+            if (testLine == 'img') {
+                i++;
+                var img = new Image();
+                img.src = loadedCode[i];
+                imgX = Number(loadedCode[i+1])
+                imgY = Number(loadedCode[i+2])
+                imgW = Number(loadedCode[i+3])
+                imgH = Number(loadedCode[i+4])
+
+                img.onload = function() {
+                    ctx.drawImage(img, imgX, imgY, imgW, imgH);
+                };
+                i += 4;
             }
             if (testLine == 'deleteall') {
                 try {
@@ -449,7 +463,6 @@ function softCompile(inputString) {
     .replace(/,/g, '')
     .replace(/"/g, '')
     .replace(/\n/g, '')
-    .replace(/zz/g, 'z');
 
     console.log(inputString)
     return output;

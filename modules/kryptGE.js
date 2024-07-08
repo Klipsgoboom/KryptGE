@@ -40,13 +40,42 @@ function squareSprite() {
     generateSpriteCode();
 }
 
+function imgSprite(path) {
+    var x = parseInt(document.getElementById('Sx').value);
+    var y = parseInt(document.getElementById('Sy').value);
+    var width = parseInt(document.getElementById('Swidth').value);
+    var height = parseInt(document.getElementById('Sheight').value);
+    
+    spriteList = JSON.parse(spriteJson);
+    
+    var newSprite = {
+        "x": x,
+        "y": y,
+        "width": width,
+        "height": height,
+        "src": path
+    };
+    
+    var spriteName = "img" + (spritesCount + 1);
+    spriteList[spriteName] = newSprite;
+    
+    spriteJson = JSON.stringify(spriteList);
+    spritesCount++;
+    generateSpriteCode();
+}
+
 function generateSpriteCode() {
-    startFunctions = ''; // Clear the startFunctions before generating
-    document.getElementById('codeInputST').value = ''; // Clear the input field before appending
+    startFunctions = '';
+    document.getElementById('codeInputST').value = '';
     for (var key in spriteList) {
         if (spriteList.hasOwnProperty(key)) {
             var sprite = spriteList[key];
-            document.getElementById('codeInputST').value += 'sprite(' + sprite.x + ', ' + sprite.y + ', ' + sprite.width + ', ' + sprite.height + ') ';
+            
+            if ('src' in sprite) {
+                document.getElementById('codeInputST').value += 'img(' + '"' + sprite.src + '"' + ', ' + sprite.x + ', ' + sprite.y + ', ' + sprite.width + ', ' + sprite.height + ') ';
+            } else {
+                document.getElementById('codeInputST').value += 'sprite(' + sprite.x + ', ' + sprite.y + ', ' + sprite.width + ', ' + sprite.height + ') ';
+            }
         }
     }
 }
