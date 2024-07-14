@@ -57,6 +57,15 @@ function interpret() {
 
     for (let l = 0; l < inputString.length && active == 0; l++) {
         currentChar = inputString[l];
+
+        imgExtension = line.slice(-4)
+
+        if (imgExtension == ".png" || imgExtension == ".jpg") {
+            var img = new Image();
+            img.src = line
+            console.log('Loading image ' + line)
+        }
+
         if (currentChar != '|' && currentChar != 'z') {
             line += currentChar;
         }
@@ -79,6 +88,7 @@ processCode();
 
 function processCode() {
             var testLine = loadedCode[linesSet];
+
 
             if (i > loadedCode.length) {
             i = loopStart;
@@ -240,9 +250,7 @@ if (tbnoneClick == 0 && testLine == "bt1click") {
                 imgW = Number(loadedCode[i+3])
                 imgH = Number(loadedCode[i+4])
 
-                img.onload = function() {
                     ctx.drawImage(img, imgX, imgY, imgW, imgH);
-                };
                 i += 4;
             }
             if (testLine == 'deleteall') {
