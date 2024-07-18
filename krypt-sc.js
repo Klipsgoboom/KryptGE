@@ -17,6 +17,36 @@ var tbntwoClick = 0;
 
 var previewAllowed = false
 
+imageQueue = [];
+currentIndex = 0;
+
+function queueImage(src, x, y, w, h) {
+    imageQueue.push({ src, x, y, w, h });
+    processQueue();
+}
+
+function processQueue() {
+    if (currentIndex >= imageQueue.length) {
+        return;
+    }
+
+    const { src, x, y, w, h } = imageQueue[currentIndex];
+    const img = new Image();
+    img.src = src;
+
+    img.onload = function() {
+        ctx.drawImage(img, x, y, w, h);
+        currentIndex++;
+        processQueue();
+    };
+
+    img.onerror = function() {
+        console.error('Failed to load image:', src);
+        currentIndex++;
+        processQueue();
+    };
+}
+
 
 try {
     var canvas = document.getElementById("tftScreen");
@@ -84,7 +114,7 @@ function interpret() {
     console.log(line);
 }
 
-processCode();
+
 
 function processCode() {
             var testLine = loadedCode[linesSet];
@@ -158,6 +188,7 @@ if (tbnoneClick == 0 && testLine == "bt1click") {
     currentFunction = loadedCode[i+1]
     }
     if (tbntwoClick == 1 && testLine == "bt2click") {
+        tbntwoClick = 0;
         currentFunction = loadedCode[i+1]
     }
 
@@ -243,16 +274,16 @@ if (tbnoneClick == 0 && testLine == "bt1click") {
             }
             if (testLine == 'img') {
                 i++;
-                var img = new Image();
-                img.src = loadedCode[i];
-                imgX = Number(loadedCode[i+1])
-                imgY = Number(loadedCode[i+2])
-                imgW = Number(loadedCode[i+3])
-                imgH = Number(loadedCode[i+4])
+    const imgSrc = loadedCode[i];
+    const imgX = Number(loadedCode[i + 1]);
+    const imgY = Number(loadedCode[i + 2]);
+    const imgW = Number(loadedCode[i + 3]);
+    const imgH = Number(loadedCode[i + 4]);
 
-                    ctx.drawImage(img, imgX, imgY, imgW, imgH);
-                i += 4;
+    queueImage(imgSrc, imgX, imgY, imgW, imgH);
+    i += 4;
             }
+            
             if (testLine == 'deleteall') {
                 try {
                     deleteAll()
